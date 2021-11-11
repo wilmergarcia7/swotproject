@@ -15,11 +15,26 @@ class Swot{
       process.exit(1);
     }
   }
-  async getAll(id){
-    const filter = {"user_id": new ObjectID(id)}
-    let swots = await this.swotColl.find(filter);
+  async getAll(){ //id
+ // async getAll(id){
+   // const filter = {"user_id": new ObjectID(id)}
+    let swots = await this.swotColl.find({});
     return swots.toArray();
   }
+
+  async addNew(swotType, swotDesc, swotMetaArray){
+    let newSwot = {
+      swotType,
+      swotDesc,
+      swotMeta: swotMetaArray,
+      swotDate: new Date().getTime(),
+      //user_id: new ObjectID(id) 
+    }
+    let result = await this.swotColl.insertOne(newSwot);
+    return result;
+  }
+
+
 
   async getWithFilterAndProjection(filter, projection) {
     // SELECT {projection} from SWOT where {filter};
@@ -112,17 +127,7 @@ class Swot{
   */
  
 
-  async addNew(swotType, swotDesc, swotMetaArray, id){
-    let newSwot = {
-      swotType,
-      swotDesc,
-      swotMeta: swotMetaArray,
-      swotDate: new Date().getTime(),
-      user_id: new ObjectID(id) 
-    }
-    let result = await this.swotColl.insertOne(newSwot);
-    return result;
-  }
+  
   async addMetaToSwot(swotMetaKey, id) {
     // UPDATE SWOT set swotMeta = 'Nuevo Valor' where _id = 'aId';
     let filter = {"_id": new ObjectID(id)};
