@@ -1,4 +1,4 @@
-/*const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 
 const mailTransport = nodemailer.createTransport(
   {
@@ -29,4 +29,3 @@ const mailSender = (to, subject, body)=>{
 }
 
 module.exports = mailSender;
-*/
